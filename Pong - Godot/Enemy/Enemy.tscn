@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bicfut1i5lvac"]
+
+[ext_resource type="Script" path="res://Enemy/Enemy.gd" id="1_g8f81"]
+[ext_resource type="Texture2D" uid="uid://4hcfv5k68mr5" path="res://assets/assets/paddle-red.png" id="1_gou14"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gi8yl"]
+radius = 12.0
+height = 102.0
+
+[node name="Enemy" type="CharacterBody2D"]
+position = Vector2(1180, 360)
+script = ExtResource("1_g8f81")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 1.5708
+texture = ExtResource("1_gou14")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_gi8yl")

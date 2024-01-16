@@ -1,0 +1,73 @@
+[gd_scene load_steps=10 format=3 uid="uid://co1asbi2361eq"]
+
+[ext_resource type="Script" path="res://Pong/Pong.gd" id="1_rqkgu"]
+[ext_resource type="PackedScene" uid="uid://r5go3o2dhkb5" path="res://Player/Player.tscn" id="1_vu8i1"]
+[ext_resource type="PackedScene" uid="uid://de47dek4qmfsw" path="res://Ball/Ball.tscn" id="2_7tqhl"]
+[ext_resource type="PackedScene" uid="uid://bicfut1i5lvac" path="res://Enemy/Enemy.tscn" id="3_jue80"]
+[ext_resource type="Texture2D" uid="uid://bkf171axahaky" path="res://assets/assets/wall-horizontal.png" id="4_5jllu"]
+[ext_resource type="Texture2D" uid="uid://mc8sc488egpk" path="res://assets/assets/wall-vertical.png" id="6_6na7j"]
+[ext_resource type="Texture2D" uid="uid://7iygc5tvqd58" path="res://assets/assets/middle-line.png" id="7_5g3tj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f5dd2"]
+size = Vector2(1188, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_701j7"]
+size = Vector2(20, 618)
+
+[node name="Pong" type="Node2D"]
+script = ExtResource("1_rqkgu")
+
+[node name="Player" parent="." instance=ExtResource("1_vu8i1")]
+
+[node name="Ball" parent="." instance=ExtResource("2_7tqhl")]
+
+[node name="Enemy" parent="." instance=ExtResource("3_jue80")]
+
+[node name="TopWall" type="StaticBody2D" parent="."]
+position = Vector2(640, 40)
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="TopWall"]
+texture = ExtResource("4_5jllu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopWall"]
+shape = SubResource("RectangleShape2D_f5dd2")
+
+[node name="BottomWall" type="StaticBody2D" parent="."]
+position = Vector2(640, 680)
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="BottomWall"]
+texture = ExtResource("4_5jllu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomWall"]
+shape = SubResource("RectangleShape2D_f5dd2")
+
+[node name="GoalLeft" type="Area2D" parent="."]
+position = Vector2(56, 358)
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="GoalLeft"]
+texture = ExtResource("6_6na7j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GoalLeft"]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_701j7")
+
+[node name="GoalRight" type="Area2D" parent="."]
+position = Vector2(1224, 358)
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="GoalRight"]
+texture = ExtResource("6_6na7j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GoalRight"]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_701j7")
+
+[node name="Middle-line" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+texture = ExtResource("7_5g3tj")
+
+[connection signal="body_entered" from="GoalLeft" to="." method="_on_goal_left_body_entered"]
+[connection signal="body_entered" from="GoalRight" to="." method="_on_goal_right_body_entered"]
